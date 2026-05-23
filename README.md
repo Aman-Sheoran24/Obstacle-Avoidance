@@ -1,6 +1,6 @@
 # obstacle-avoidance
 
-[![CI](https://github.com/<YOUR-GITHUB-USERNAME>/obstacle-avoidance/actions/workflows/ci.yml/badge.svg)](https://github.com/<YOUR-GITHUB-USERNAME>/obstacle-avoidance/actions/workflows/ci.yml)
+[![CI](https://github.com/Aman-Sheoran24/obstacle-avoidance/actions/workflows/ci.yml/badge.svg)](https://github.com/Aman-Sheoran24/obstacle-avoidance/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
@@ -87,7 +87,7 @@ Quick version:
 ## Software install
 
 ```bash
-git clone https://github.com/<YOUR-GITHUB-USERNAME>/obstacle-avoidance.git
+git clone https://github.com/Aman-Sheoran24/obstacle-avoidance.git
 cd obstacle-avoidance
 
 python3.10 -m venv .venv
