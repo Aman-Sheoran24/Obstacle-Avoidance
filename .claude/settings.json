@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dir \"c:\\\\Users\\\\Aman sheoran\\\\Desktop\\\\Obstacle Avoidance\")",
+      "PowerShell(python --version)",
+      "PowerShell(pip --version)",
+      "PowerShell(python -m compileall -q src tests scripts examples)",
+      "PowerShell(python -m pip install --quiet pyserial==3.5 numpy==1.26.4 pymavlink==2.4.41 pytest==8.2.1 2>&1)",
+      "PowerShell(python -m venv .venv)",
+      "PowerShell(if \\($?\\) { \".venv created\" })"
+    ]
+  }
+}

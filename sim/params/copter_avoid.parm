@@ -1,0 +1,34 @@
+# ArduCopter SITL parameter overrides for obstacle-avoidance testing.
+# Load with:  param load sim/params/copter_avoid.parm
+# (inside the MAVProxy console started by sim_vehicle.py).
+#
+# These are STARTING points — re-tune for your airframe before any
+# hardware flight. See docs/safety.md.
+
+# --- Telemetry / companion link --------------------------------------
+SERIAL2_PROTOCOL,2          # MAVLink2 on TELEM2
+SERIAL2_BAUD,921
+
+# --- Geofence (RTL on breach) ---------------------------------------
+FENCE_ENABLE,1
+FENCE_TYPE,7                # alt + circle + polygon
+FENCE_ACTION,1              # 1 = RTL or LAND
+FENCE_ALT_MAX,20
+FENCE_RADIUS,50
+
+# --- Speed limits ----------------------------------------------------
+WPNAV_SPEED,200             # cm/s horizontal during AUTO
+WPNAV_SPEED_DN,150
+WPNAV_SPEED_UP,150
+LOIT_SPEED,500
+
+# --- Avoidance kill switch on RC channel 8 ---------------------------
+# Aux function 40 = "Proximity Avoidance Enable" (toggle in flight).
+RC8_OPTION,40
+
+# --- Failsafes -------------------------------------------------------
+FS_GCS_ENABLE,1             # GCS heartbeat loss triggers FS
+FS_THR_ENABLE,1             # RC loss triggers FS
+BATT_LOW_VOLT,14.0
+BATT_LOW_MAH,500
+BATT_FS_LOW_ACT,2           # 2 = RTL on low battery

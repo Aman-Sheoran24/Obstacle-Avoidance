@@ -1,0 +1,60 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-wheel-metadata/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.env
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.tox/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Captured flight / log data (large binaries — keep in releases, not git)
+*.bin
+*.tlog
+*.BIN
+*.TLOG
+logs/
+
+# Gazebo / ArduPilot SITL runtime
+~/.gazebo/
+*.world.log
+eeprom.bin
+mav.parm
+sitl_runtime/
+
+# Generated docs
+docs/_build/
+docs/images/*.png.bak
+
+# Local notes the user keeps next to the repo
+NOTES.md
+TODO.local.md

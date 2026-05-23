@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<!--
+  Iris + ArduPilot bridge + 360 deg 2D gpu_lidar.
+
+  This model wraps the official ``iris_with_ardupilot`` model (shipped by
+  the ardupilot_gazebo plugin) and attaches a Gazebo Harmonic gpu_lidar
+  sensor on top of the airframe. Output topic: /lidar_scan.
+
+  Loading order: the ardupilot_gazebo plugin must already be on
+  GZ_SIM_SYSTEM_PLUGIN_PATH and its models on GZ_SIM_RESOURCE_PATH —
+  see README.md / docs/wiring.md.
+-->
+<sdf version="1.10">
+  <model name="iris_lidar">
+
+    <include>
+      <uri>model://iris_with_ardupilot</uri>
+    </include>
+
+    <link name="lidar_link">
+      <pose relative_to="iris_with_ardupilot::base_link">0 0 0.12 0 0 0</pose>
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>1e-5</ixx><iyy>1e-5</iyy><izz>1e-5</izz>
+          <ixy>0</ixy><ixz>0</ixz><iyz>0</iyz>
+        </inertia>
+      </inertial>
+
+      <visual name="visual">
+        <geometry><cylinder><radius>0.025</radius><length>0.05</length></cylinder></geometry>
+        <material><diffuse>0.1 0.1 0.1 1</diffuse></material>
+      </visual>
+
+      <sensor name="lidar2d" type="gpu_lidar">
+        <update_rate>10</update_rate>
+        <topic>lidar_scan</topic>
+        <lidar>
+          <scan>
+            <horizontal>
+              <samples>360</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+            </horizontal>
+          </scan>
+          <range>
+            <min>0.05</min>
+            <max>12.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </lidar>
+        <visualize>true</visualize>
+        <always_on>1</always_on>
+      </sensor>
+    </link>
+
+    <joint name="lidar_to_iris" type="fixed">
+      <parent>iris_with_ardupilot::base_link</parent>
+      <child>lidar_link</child>
+    </joint>
+
+  </model>
+</sdf>

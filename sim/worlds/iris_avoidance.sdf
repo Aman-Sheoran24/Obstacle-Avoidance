@@ -1,0 +1,116 @@
+<?xml version="1.0" ?>
+<!--
+  Minimal Gazebo Harmonic world for testing VFH+ obstacle avoidance.
+
+  Scene:
+    * 60 m x 60 m ground plane
+    * Sun + ambient lighting
+    * Three obstacle layouts the test plan exercises:
+        - single cylinder dead ahead at 8 m
+        - 2 m doorway between two boxes at 14 m
+        - slalom of three cylinders at 22, 26, 30 m
+
+  Spawn the Iris quadcopter with an attached gpu_lidar using
+  ``sim/models/iris_lidar/model.sdf``. The ArduPilot SITL bridge handles
+  the dynamics; the obstacle_avoidance package reads the LaserScan topic.
+-->
+<sdf version="1.10">
+  <world name="iris_avoidance">
+
+    <physics name="1ms" type="ignored">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+    </physics>
+
+    <plugin filename="gz-sim-physics-system"            name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system"      name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system"  name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system"            name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.4 0.4 0.4 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>60 60</size></plane></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>60 60</size></plane></geometry>
+          <material><ambient>0.5 0.5 0.5 1</ambient><diffuse>0.5 0.5 0.5 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Scenario 1: single cylinder dead ahead, 8 m out -->
+    <model name="cyl_ahead">
+      <static>true</static>
+      <pose>8 0 0.75 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.5</radius><length>1.5</length></cylinder></geometry></collision>
+        <visual    name="v"><geometry><cylinder><radius>0.5</radius><length>1.5</length></cylinder></geometry>
+          <material><diffuse>0.7 0.2 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- Scenario 2: 2 m doorway at 14 m -->
+    <model name="door_left">
+      <static>true</static>
+      <pose>14 1.5 0.75 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1 1 1.5</size></box></geometry></collision>
+        <visual    name="v"><geometry><box><size>1 1 1.5</size></box></geometry>
+          <material><diffuse>0.2 0.7 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="door_right">
+      <static>true</static>
+      <pose>14 -1.5 0.75 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>1 1 1.5</size></box></geometry></collision>
+        <visual    name="v"><geometry><box><size>1 1 1.5</size></box></geometry>
+          <material><diffuse>0.2 0.7 0.2 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <!-- Scenario 3: slalom -->
+    <model name="slalom_1">
+      <static>true</static><pose>22 1.0 0.75 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.3</radius><length>1.5</length></cylinder></geometry></collision>
+        <visual    name="v"><geometry><cylinder><radius>0.3</radius><length>1.5</length></cylinder></geometry>
+          <material><diffuse>0.2 0.2 0.7 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="slalom_2">
+      <static>true</static><pose>26 -1.0 0.75 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.3</radius><length>1.5</length></cylinder></geometry></collision>
+        <visual    name="v"><geometry><cylinder><radius>0.3</radius><length>1.5</length></cylinder></geometry>
+          <material><diffuse>0.2 0.2 0.7 1</diffuse></material></visual>
+      </link>
+    </model>
+    <model name="slalom_3">
+      <static>true</static><pose>30 1.0 0.75 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><cylinder><radius>0.3</radius><length>1.5</length></cylinder></geometry></collision>
+        <visual    name="v"><geometry><cylinder><radius>0.3</radius><length>1.5</length></cylinder></geometry>
+          <material><diffuse>0.2 0.2 0.7 1</diffuse></material></visual>
+      </link>
+    </model>
+
+    <include>
+      <uri>model://iris_lidar</uri>
+      <pose>0 0 0.2 0 0 0</pose>
+    </include>
+
+  </world>
+</sdf>
